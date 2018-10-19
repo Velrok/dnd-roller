@@ -73,10 +73,10 @@
    [<dice-selector>]
    [:hr]
    [<dice-tower>]
-   [:hr]
-   [:img.roll-icon {:src "/img/dice/rolling-dices.png"
-                    :width "90px"
-                    :on-click roll-dice-selection!}]
+   ;[:hr]
+   ;[:img.roll-icon {:src "/img/dice/rolling-dices.png"
+   ;                 :width "90px"
+   ;                 :on-click roll-dice-selection!}]
    ])
 
 (defn start []
