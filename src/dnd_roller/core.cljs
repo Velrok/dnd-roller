@@ -10,13 +10,14 @@
 (def d8  {:sides  8 :img "/img/dice/dice-eight-faces-eight.png"})
 (def d20 {:sides 20 :img "/img/dice/dice-twenty-faces-twenty.png"})
 
-(defn roll-dice-selection
+(defn roll-dice
+  [d]
+  (assoc d :value
+         (inc (rand-int (:sides d)))))
+
+(defn roll-dice-selection!
   [& args]
-  (swap! dice-selection
-         (fn [dice]
-           (map (fn [d] (assoc d :value
-                               (inc (rand-int (:sides d)))))
-                dice))))
+  (swap! dice-selection #(map roll-dice %)))
 
 (defn <dice>
   [attr dice]
