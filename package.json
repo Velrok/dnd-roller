@@ -3,6 +3,8 @@
     "deps": "yarn install",
     "watch": "shadow-cljs watch app;",
     "release": "shadow-cljs release app;",
+    "postinstall": "shadow-cljs release app;",
+    "start": "shadow-cljs server;",
     "server": "shadow-cljs server;",
     "clean": "rm -rf target; rm -rf public/js/compiled"
   },
