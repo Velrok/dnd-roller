@@ -29,10 +29,10 @@
   [:div
    (for [d [d6 d8 d20]]
      [<dice> {:key (str "d-selection-" (:sides d))
-              :on-click #(do
-                           (println "dice clicked")
-                           (swap! dice-selection conj
-                                  (assoc d :id (gensym))))}
+              :on-click #(swap! dice-selection conj
+                                (-> d
+                                    (assoc :id (gensym))
+                                    roll-dice))}
       d])])
 
 (defn <dice-tower>
