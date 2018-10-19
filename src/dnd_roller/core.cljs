@@ -12,9 +12,14 @@
   [x]
   (max 0 (dec x)))
 
+(def d4  {:sides  4 :img "/img/dice/d4.png"})
 (def d6  {:sides  6 :img "/img/dice/perspective-dice-six-faces-five.png"})
 (def d8  {:sides  8 :img "/img/dice/dice-eight-faces-eight.png"})
+(def d10 {:sides 10 :img "/img/dice/d10.png"})
+(def d12 {:sides 12 :img "/img/dice/d12.png"})
 (def d20 {:sides 20 :img "/img/dice/dice-twenty-faces-twenty.png"})
+
+(def  all-dice [d4 d6 d8 d10 d12 d20])
 
 (defn roll-dice
   [d]
@@ -34,7 +39,7 @@
 (defn <dice-selector>
   []
   [:div
-   (for [d [d6 d8 d20]]
+   (for [d  all-dice]
      [<dice> {:key (str "d-selection-" (:sides d))
               :on-click #(do
                            (swap! dice-selection conj
