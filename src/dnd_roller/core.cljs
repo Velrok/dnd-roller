@@ -63,7 +63,6 @@
           [<dice> {} d]
           [:p {:style {:text-align "center"
                        :font-size "3rem"
-                       :font-family "fantasy"
                        :margin "5px"}
                :class (cond
                         (= 1 (:value d))          "crit-fail"
