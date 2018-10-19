@@ -8,7 +8,6 @@ body {
 h1 {
     font-family: serif;
     font-size: 3rem;
-
 }
 
 button {
@@ -19,4 +18,21 @@ button {
     padding: 1rem 2rem;
     font-size: 2rem;
     text-align: center;
+}
+
+.crit-fail {
+    color: #FF1300;
+    /* color: #B70D00 */
+}
+
+.crit-roll {
+    color: #FFD700;
+}
+
+.worst-roll {
+    color: #AA99D7;
+}
+
+.best-roll {
+    color: #00C322;
 }

@@ -50,17 +50,15 @@
                                     (fn [dd] (= (:id d) (:id dd)))
                                     ds)))}
         [<dice> {} d]
-        [:p {:style (merge {:text-align "center"
-                            :font-size "3rem"
-                            :font-family "fantasy"
-                            :margin "5px"}
-                           (cond
-                             (= 1 (:value d))          {:color "red"
-                                                        :text-shadow "0px 0px 6px red"}
-                             (= (:sides d) (:value d)) {:color "gold"
-                                                        :text-shadow "0px 0px 6 gold"}
-                             (= min-v (:value d))      {:color "orange"}
-                             (= max-v (:value d))      {:color "Teal"}))}
+        [:p {:style {:text-align "center"
+                     :font-size "3rem"
+                     :font-family "fantasy"
+                     :margin "5px"}
+             :class (cond
+                      (= 1 (:value d))          "crit-fail"
+                      (= (:sides d) (:value d)) "crit-roll"
+                      (= min-v (:value d))      "worst-roll"
+                      (= max-v (:value d))      "best-roll")}
          (or (:value d) "?")]])
      [:span {:style {:display "inline-block"}}
       [:p {:style {:text-align "center"
