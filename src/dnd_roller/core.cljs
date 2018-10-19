@@ -41,31 +41,33 @@
   (let [rolles (keep :value @dice-selection)
         min-v (reduce min rolles)
         max-v (reduce max rolles)]
-    [:div
-     (for [d @dice-selection]
-       [:span {:key (:id d)
-               :style {:display "inline-block"}
-               :on-click #(swap! dice-selection
-                                 (fn [ds]
-                                   (remove
-                                    (fn [dd] (= (:id d) (:id dd)))
-                                    ds)))}
-        [<dice> {} d]
+    (if (empty? rolles)
+      [:div]
+      [:div
+       (for [d @dice-selection]
+         [:span {:key (:id d)
+                 :style {:display "inline-block"}
+                 :on-click #(swap! dice-selection
+                                   (fn [ds]
+                                     (remove
+                                      (fn [dd] (= (:id d) (:id dd)))
+                                      ds)))}
+          [<dice> {} d]
+          [:p {:style {:text-align "center"
+                       :font-size "3rem"
+                       :font-family "fantasy"
+                       :margin "5px"}
+               :class (cond
+                        (= 1 (:value d))          "crit-fail"
+                        (= (:sides d) (:value d)) "crit-roll"
+                        (= min-v (:value d))      "worst-roll"
+                        (= max-v (:value d))      "best-roll")}
+           (or (:value d) "?")]])
+       [:span {:style {:display "inline-block"}}
         [:p {:style {:text-align "center"
                      :font-size "3rem"
-                     :font-family "fantasy"
-                     :margin "5px"}
-             :class (cond
-                      (= 1 (:value d))          "crit-fail"
-                      (= (:sides d) (:value d)) "crit-roll"
-                      (= min-v (:value d))      "worst-roll"
-                      (= max-v (:value d))      "best-roll")}
-         (or (:value d) "?")]])
-     [:span {:style {:display "inline-block"}}
-      [:p {:style {:text-align "center"
-                   :font-size "3rem"
-                   :margin "5px"}}
-       (str "= " (reduce + rolles))]]]))
+                     :margin "5px"}}
+         (str "= " (reduce + rolles))]]])))
 
 (defn main-view []
   [:div
