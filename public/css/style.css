@@ -1,0 +1,22 @@
+/* some style */
+body {
+    background-color: #222;
+    color: #DDD;
+    font-family: fantasy
+}
+
+h1 {
+    font-family: serif;
+    font-size: 3rem;
+
+}
+
+button {
+    border: 0;
+    /* background: none; */
+    box-shadow: none;
+    border-radius: 0px;
+    padding: 1rem 2rem;
+    font-size: 2rem;
+    text-align: center;
+}
