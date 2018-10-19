@@ -68,7 +68,7 @@
                    :margin "5px"}}
        (str "= " (reduce + rolles))]]]))
 
-(defn hello-world []
+(defn main-view []
   [:div
    [:h1 "D&D Roller" ]
    [<dice-selector>]
@@ -82,7 +82,7 @@
 
 (defn start []
   (println "start")
-  (r/render-component [hello-world]
+  (r/render-component [main-view]
                       (. js/document (getElementById "app"))))
 
 (defn ^:export init []
