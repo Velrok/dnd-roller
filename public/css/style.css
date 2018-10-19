@@ -52,3 +52,7 @@ appearance: none;
 .dice-timeout[value]::-webkit-progress-value {
     background-color: #746200;
 }
+
+.dice-icon {
+    width: 105px;
+}

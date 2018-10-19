@@ -32,8 +32,7 @@
 
 (defn <dice>
   [attr dice]
-  [:img.dice-icon (merge {:src (:img dice)
-                          :width "80px"}
+  [:img.dice-icon (merge {:src (:img dice)}
                          attr)])
 
 (defn <dice-selector>
