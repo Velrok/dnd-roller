@@ -6,6 +6,12 @@
 (defonce app-state (r/atom {:text "Hello world!"}))
 (defonce dice-selection (r/atom []))
 
+(defonce dice-selection-reset-timer (r/atom 0))
+
+(defn count-down
+  [x]
+  (max 0 (dec x)))
+
 (def d6  {:sides  6 :img "/img/dice/perspective-dice-six-faces-five.png"})
 (def d8  {:sides  8 :img "/img/dice/dice-eight-faces-eight.png"})
 (def d20 {:sides 20 :img "/img/dice/dice-twenty-faces-twenty.png"})
@@ -30,10 +36,12 @@
   [:div
    (for [d [d6 d8 d20]]
      [<dice> {:key (str "d-selection-" (:sides d))
-              :on-click #(swap! dice-selection conj
-                                (-> d
-                                    (assoc :id (gensym))
-                                    roll-dice))}
+              :on-click #(do
+                           (swap! dice-selection conj
+                                  (-> d
+                                      (assoc :id (gensym))
+                                      roll-dice))
+                           (reset! dice-selection-reset-timer 20))}
       d])])
 
 (defn <dice-tower>
@@ -73,7 +81,8 @@
   [:div
    [:h1 "D&D Roller" ]
    [<dice-selector>]
-   [:hr]
+  ;  [:hr]
+   [:progress.dice-timeout {:max 20 :value @dice-selection-reset-timer}]
    [<dice-tower>]
    ;[:hr]
    ;[:img.roll-icon {:src "/img/dice/rolling-dices.png"
@@ -90,6 +99,11 @@
   ;; init is called ONCE when the page loads
   ;; this is called in the index.html and must be exported
   ;; so it is available even in :advanced release builds
+  (js/setInterval #(do
+                     (swap! dice-selection-reset-timer count-down)
+                     (when (zero? @dice-selection-reset-timer)
+                       (reset! dice-selection [])))
+                  1000)
   (start))
 
 (defn stop []
