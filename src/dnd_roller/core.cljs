@@ -6,9 +6,9 @@
 (defonce app-state (r/atom {:text "Hello world!"}))
 (defonce dice-selection (r/atom []))
 
-(def d6 {:sides 6 :img "/img/perspective-dice-six-faces-five.png"})
-(def d8 {:sides 8 :img "/img/dice-eight-faces-eight.png"})
-(def d20 {:sides 20 :img "/img/dice-twenty-faces-twenty.png"})
+(def d6  {:sides  6 :img "/img/dice/perspective-dice-six-faces-five.png"})
+(def d8  {:sides  8 :img "/img/dice/dice-eight-faces-eight.png"})
+(def d20 {:sides 20 :img "/img/dice/dice-twenty-faces-twenty.png"})
 
 (defn roll-dice-selection
   [& args]
