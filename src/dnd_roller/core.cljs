@@ -20,9 +20,9 @@
 
 (defn <dice>
   [attr dice]
-  [:img (merge {:src (:img dice)
-                :width "80px"}
-               attr)])
+  [:img.dice-icon (merge {:src (:img dice)
+                          :width "80px"}
+                         attr)])
 
 (defn <dice-selector>
   []
@@ -73,9 +73,9 @@
    [:hr]
    [<dice-tower>]
    [:hr]
-   [:img {:src "/img/dice/rolling-dices.png"
-          :width "90px"
-          :on-click roll-dice-selection}]
+   [:img.roll-icon {:src "/img/dice/rolling-dices.png"
+                    :width "90px"
+                    :on-click roll-dice-selection!}]
    ])
 
 (defn start []
