@@ -8,6 +8,33 @@
 
 (defonce dice-selection-reset-timer (r/atom 0))
 
+(def dice-roll-sounds ["/audio/dice roll 1.m4a"
+                       "/audio/dice roll 2.m4a"
+                       "/audio/dice roll 3.m4a"
+                       "/audio/dice roll 4.m4a"
+                       "/audio/dice roll 5.m4a"
+                       "/audio/dice roll 6.m4a"])
+
+(defn <dice-roll-sounds>
+  []
+  [:div
+   (for [s dice-roll-sounds]
+     [:audio {:id  (str "da-" s)
+              :key (str "dice-audio-" s)}
+      [:source {:src s}]])])
+
+(defn play-random-dice-sound
+  []
+  (let [rand-sound (->> dice-roll-sounds
+                        shuffle
+                        first)]
+    (println (str "Playing: " rand-sound))
+    (->> rand-sound
+         (str "da-")
+         (.getElementById js/document)
+         .play)))
+
+
 (defn count-down
   [x]
   (max 0 (dec x)))
@@ -41,6 +68,7 @@
    (for [d  all-dice]
      [<dice> {:key (str "d-selection-" (:sides d))
               :on-click #(do
+                           (play-random-dice-sound)
                            (swap! dice-selection conj
                                   (-> d
                                       (assoc :id (gensym))
@@ -82,16 +110,11 @@
 
 (defn main-view []
   [:div
-   [:h1 "D&D Roller" ]
+   [:h1 "D&D Roller"]
+   [<dice-roll-sounds>]
    [<dice-selector>]
-  ;  [:hr]
    [:progress.dice-timeout {:max 20 :value @dice-selection-reset-timer}]
-   [<dice-tower>]
-   ;[:hr]
-   ;[:img.roll-icon {:src "/img/dice/rolling-dices.png"
-   ;                 :width "90px"
-   ;                 :on-click roll-dice-selection!}]
-   ])
+   [<dice-tower>]])
 
 (defn start []
   (println "start")
