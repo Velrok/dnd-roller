@@ -38,10 +38,10 @@ button {
 }
 
 .dice-timeout {
-width: 100%;
-height: 10px;
--webkit-appearance: none;
-appearance: none;
+    width: 100%;
+    height: 5px;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .dice-timeout[value]::-webkit-progress-bar {
