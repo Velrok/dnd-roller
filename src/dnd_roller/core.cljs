@@ -40,7 +40,7 @@
   (max 0 (dec x)))
 
 (def d4  {:sides  4 :img "/img/dice/d4.png"})
-(def d6  {:sides  6 :img "/img/dice/perspective-dice-six-faces-five.png"})
+(def d6  {:sides  6 :img "/img/dice/perspective-dice-six.png"})
 (def d8  {:sides  8 :img "/img/dice/dice-eight-faces-eight.png"})
 (def d10 {:sides 10 :img "/img/dice/d10.png"})
 (def d12 {:sides 12 :img "/img/dice/d12.png"})
