@@ -56,3 +56,13 @@ button {
 .dice-icon {
     width: 105px;
 }
+
+@keyframes dice-roll-animation {
+    from {transform: rotate(0deg)}
+    to {transform: rotate(360deg)}
+}
+
+.refresh-icon {
+    height: 60px;
+    float: right;
+}

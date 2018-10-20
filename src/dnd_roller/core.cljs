@@ -67,13 +67,23 @@
   [:div
    (for [d  all-dice]
      [<dice> {:key (str "d-selection-" (:sides d))
-              :on-click #(do
-                           (play-random-dice-sound)
-                           (swap! dice-selection conj
-                                  (-> d
-                                      (assoc :id (gensym))
-                                      roll-dice))
-                           (reset! dice-selection-reset-timer 20))}
+              :style {:animation-name "dice-roll-animation"
+                      :animation-play-state "paused"
+                      :animation-iteration-count "infinite"
+                      :animation-duration "0.5s"}
+              :on-click (fn [event]
+                                                  ;;(some-> event .-target .-style .-animation-play-state println)
+                          (let [target (some-> event .-target)]
+                            (some-> target .-style (.setProperty "animation-play-state" "running" ""))
+                            (js/setTimeout
+                             #(some-> target .-style (.setProperty "animation-play-state" "paused" ""))
+                             500))
+                          (play-random-dice-sound)
+                          (swap! dice-selection conj
+                                 (-> d
+                                     (assoc :id (gensym))
+                                     roll-dice))
+                          (reset! dice-selection-reset-timer 20))}
       d])])
 
 (defn <dice-tower>
