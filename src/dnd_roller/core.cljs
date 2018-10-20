@@ -110,7 +110,9 @@
 
 (defn main-view []
   [:div
-   [:h1 "D&D Roller"]
+   [:h1 {:style {:display "inline-block"}} "D&D Roller"]
+   [:img.refresh-icon {:src "/img/refresh.png"
+                       :on-click #(.reload js/location true)}]
    [<dice-roll-sounds>]
    [<dice-selector>]
    [:progress.dice-timeout {:max 20 :value @dice-selection-reset-timer}]
