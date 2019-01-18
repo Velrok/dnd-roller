@@ -15,6 +15,8 @@
                        "/audio/dice roll 5.m4a"
                        "/audio/dice roll 6.m4a"])
 
+(def results-timeout 30)
+
 (defn <dice-roll-sounds>
   []
   [:div
@@ -83,7 +85,7 @@
                                  (-> d
                                      (assoc :id (gensym))
                                      roll-dice))
-                          (reset! dice-selection-reset-timer 20))}
+                          (reset! dice-selection-reset-timer results-timeout))}
       d])])
 
 (defn <dice-tower>
@@ -125,7 +127,8 @@
                        :on-click #(.reload js/location true)}]
    [<dice-roll-sounds>]
    [<dice-selector>]
-   [:progress.dice-timeout {:max 20 :value @dice-selection-reset-timer}]
+   [:progress.dice-timeout {:max results-timeout 
+                            :value @dice-selection-reset-timer}]
    [<dice-tower>]])
 
 (defn start []
