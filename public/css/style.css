@@ -50,7 +50,7 @@ button {
 }
 
 .dice-timeout[value]::-webkit-progress-value {
-    background-color: #746200;
+    background-color: #AAA;
 }
 
 .dice-icon {
