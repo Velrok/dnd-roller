@@ -66,3 +66,29 @@ button {
     height: 60px;
     float: right;
 }
+
+.roll-distribution {
+  display: inline-block;
+  margin-bottom: 25px;
+  margin-right: 25px;
+}
+
+.roll-distribution p {
+  margin: 0;
+  text-align: center;
+}
+
+.roll-distribution .recharts-wrapper {
+  display: inline-block;
+}
+
+.recharts-surface {
+  border-left: 2px;
+  border-left-style: solid;
+  border-left-color: #666;
+
+  border-bottom: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: #666;
+
+}
