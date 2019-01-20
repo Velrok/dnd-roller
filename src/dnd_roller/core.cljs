@@ -1,7 +1,7 @@
 (ns dnd-roller.core
   (:require 
     [reagent.core :as r]
-    ["Recharts" :refer [BarChart Bar]] ))
+    ["recharts" :refer [BarChart Bar]] ))
 
 (def bar-chart (r/adapt-react-class BarChart))
 (def bar (r/adapt-react-class Bar))
