@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "deps": "yarn install",
+    "deps": "npm install",
     "watch": "shadow-cljs watch app;",
     "release": "shadow-cljs release app;",
     "postinstall": "shadow-cljs release app;",
@@ -15,5 +15,8 @@
     "react-dom": "^16.0.0",
     "recharts": "^1.4.2",
     "shadow-cljs": "^2.0.80"
+  },
+  "engines": {
+    "node": "10.9.0"
   }
 }
