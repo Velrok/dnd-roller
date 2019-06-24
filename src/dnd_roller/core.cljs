@@ -69,7 +69,7 @@
 
 (defn <dice-selector>
   []
-  [:div
+  [:div.dice-selector
    (for [d  all-dice]
      [<dice> {:key (str "d-selection-" (:sides d))
               :style {:animation-name "dice-roll-animation"
@@ -91,23 +91,24 @@
                           (reset! dice-selection-reset-timer results-timeout))}
       d])])
 
-(defn <dice-tower>
+(defn <dice-board>
   []
   (let [rolles (keep :value @rolls)
         ;min-v  (reduce min rolles)
         ;max-v  (reduce max rolles)
         ]
     (if (empty? rolles)
-      [:div]
-      [:div
+      [:div.dice-board]
+      [:div.dice-board
        (for [d @rolls]
-         [:span {:key (:id d)
-                 :style {:display "inline-block"}
-                 :on-click #(swap! rolls
-                                   (fn [ds]
-                                     (remove
-                                      (fn [dd] (= (:id d) (:id dd)))
-                                      ds)))}
+         [:span.dice-board__roll
+          {:key (:id d)
+           :style {:display "inline-block"}
+           :on-click #(swap! rolls
+                             (fn [ds]
+                               (remove
+                                 (fn [dd] (= (:id d) (:id dd)))
+                                 ds)))}
           [<dice> {} d]
           [:p {:style {:text-align "center"
                        :font-size "3rem"
@@ -149,15 +150,15 @@
            " #" (reduce + (vals data))]]))]))
 
 (defn main-view []
-  [:div
-   [:h1 {:style {:display "inline-block"}} "D&D Roller"]
+  [:div.main
+   [<dice-roll-sounds>]
+   [:h1.app-title {:style {:display "inline-block"}} "D&D Roller"]
    [:img.refresh-icon {:src "/img/refresh.png"
                        :on-click #(.reload js/location true)}]
-   [<dice-roll-sounds>]
-   [<dice-selector>]
    [:progress.dice-timeout {:max results-timeout 
                             :value @dice-selection-reset-timer}]
-   [<dice-tower>]
+   [<dice-selector>]
+   [<dice-board>]
    [<distribution>] ])
 
 (defn start []
