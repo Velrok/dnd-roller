@@ -1,12 +1,8 @@
 (ns dnd-roller.core
-  (:require 
-    [reagent.core :as r]
-    ["recharts" :refer [BarChart Bar]] ))
-
-(def bar-chart (r/adapt-react-class BarChart))
-(def bar (r/adapt-react-class Bar))
+  (:require [reagent.core :as r]))
 
 (defonce rolls (r/atom []))
+(defonce roll-history (r/atom []))
 (defonce dice-selection-reset-timer (r/atom 0))
 
 (def dice-roll-sounds ["/audio/dice roll 1.m4a"
@@ -15,8 +11,6 @@
                        "/audio/dice roll 4.m4a"
                        "/audio/dice roll 5.m4a"
                        "/audio/dice roll 6.m4a"])
-
-(defonce history (r/atom ()))
 
 (def results-timeout 30)
 
@@ -54,13 +48,10 @@
 
 (def all-dice [d4 d6 d8 d10 d12 d20])
 
-(defn roll-dice!
+(defn roll-dice
   [d]
-  (let [r (assoc d :value
-                 (inc (rand-int (:sides d))))]
-    (prn "adding " r)
-    (swap! history conj (assoc r :date-time (js/Date.)))
-    r))
+  (assoc d :value
+         (inc (rand-int (:sides d)))))
 
 (defn <dice>
   [attr dice]
@@ -87,7 +78,7 @@
                           (swap! rolls conj
                                  (-> d
                                      (assoc :id (gensym))
-                                     roll-dice!))
+                                     roll-dice))
                           (reset! dice-selection-reset-timer results-timeout))}
       d])])
 
@@ -125,29 +116,6 @@
                      :margin "5px"}}
          (str "= " (reduce + rolles))]]])))
 
-(defn <distribution>
-  []
-  (let [dist (for [[sides results] (group-by :sides @history)]
-               (let [distribution
-                     (into {}
-                           (for [[v items] (group-by :value results)]
-                             [v (count items)]))]
-                 [sides distribution]))]
-    [:div.roll-distributions
-     (doall
-       (for [[sides data] (sort-by first dist)]
-         [:div.roll-distribution {:key (str "dist-d" sides)
-                                  :class (str "dist-d" sides)}
-          [bar-chart {:width (int (/ (.-innerWidth js/window) 4))
-                      :height 100
-                      :data (map (fn [%]
-                                   {:data (get data % 0)})
-                                 (map inc (range sides)))}
-           [bar {:dataKey "data" :fill "#FFF"}]]
-          [:p 
-           (str "D" sides) 
-           " #" (reduce + (vals data))]]))]))
-
 (defn main-view []
   [:div
    [:h1 {:style {:display "inline-block"}} "D&D Roller"]
@@ -157,8 +125,7 @@
    [<dice-selector>]
    [:progress.dice-timeout {:max results-timeout 
                             :value @dice-selection-reset-timer}]
-   [<dice-tower>]
-   [<distribution>] ])
+   [<dice-tower>]])
 
 (defn start []
   (println "start")
