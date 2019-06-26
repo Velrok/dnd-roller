@@ -1,6 +1,7 @@
 (ns dnd-roller.core
   (:require 
-    ["THREE" :as three :refer [Vector3]]
+    [reagent.core :as r]
+    ["three" :as three :refer [Vector3]]
     ["react-three-fiber" :refer [Canvas]]
     ["recharts" :refer [BarChart Bar]] ))
 
@@ -59,7 +60,7 @@
   [d]
   (let [r (assoc d :value
                  (inc (rand-int (:sides d))))]
-    (prn "adding " r)
+    ;(prn "adding " r)
     (swap! history conj (assoc r :date-time (js/Date.)))
     r))
 
@@ -130,26 +131,28 @@
 (defn <thing>
   [{:keys [verts]}]
   [:group {:ref #(.log js/console "We have access!")}
-   [:line
-    [:geometry {:attache "geometry"
-                :verticies (map (fn [ x y z] (new Vector3 x y z))
-                                verts)
-                :onUpdate #(set (.-verticesNeedUpdate %) true)}]
-    [:lineBasicMaterial {:attach "material"
-                         :color "white"}]]
-   [:mesh {}
-    [:octahedronGeometry {:attach "geometry"}]
-    [:meshBasicMaterial {:attach "material"
-                         :color "peachpuff"
-                         :opacity 0.5
-                         :transparent true}]]])
+     [:line {}
+      [:geometry {:attache "geometry"
+                  :verticies (map (fn [ x y z] (new Vector3 x y z))
+                                  verts)
+                  :onUpdate #(set! (.-verticesNeedUpdate %) true)}]
+      [:lineBasicMaterial {:attach "material"
+                           :color "white"}]]
+     [:mesh {}
+      [:octahedronGeometry {:attach "geometry"}]
+      [:meshBasicMaterial {:attach "material"
+                           :color "peachpuff"
+                           :opacity 0.5
+                           :transparent true}]]])
 
 (defn <dice-board-3d>
   []
   (let [verts [[-1, 0, 0], [0, 1, 0], [1, 0, 0], [0, -1, 0], [-1, 0, 0]]]
     (fn []
-      [:> Canvas
-       [<thing> {:verts verts}]])))
+      [:div.dice-board
+       [(r/adapt-react-class Canvas)
+        [<thing> {:verts verts}]
+        ]])))
 
 (defn <distribution>
   []

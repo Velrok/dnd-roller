@@ -13,6 +13,8 @@
         :output-dir "public/js/compiled"
         :asset-path "/js/compiled"
 
+        :compiler-options {:infer-externs :auto}
+
         :modules
         {:main
          {:entries [dnd-roller.core]}}
