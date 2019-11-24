@@ -1,8 +1,8 @@
 /* some style */
 body {
-    background-color: #222;
-    color: #DDD;
-    font-family: fantasy
+  background-color: #222;
+  color: #DDD;
+  font-family: fantasy
 }
 
 h1 {
@@ -13,97 +13,93 @@ h1 {
 }
 
 button {
-    border: 0;
-    /* background: none; */
-    box-shadow: none;
-    border-radius: 0px;
-    padding: 1rem 2rem;
-    font-size: 2rem;
-    text-align: center;
+  border: 0;
+  /* background: none; */
+  box-shadow: none;
+  border-radius: 0px;
+  padding: 1rem 2rem;
+  font-size: 2rem;
+  text-align: center;
 }
 
 .main {
   display: grid;
   grid-template-columns: auto 95px;
-  grid-template-rows: 70px auto 200px;
+  grid-template-rows: 20px 70px auto auto auto;
+  grid-template-areas:
+  "toprow  toprow"
+  "title   dice"
+  "roles   dice"
+  "stats   dice"
+  "refresh refresh";
 }
 
 .app-title {
-  grid-column: 1 / 2;
-  grid-row: 1 / 1;
+  grid-area: title;
 }
 
 .dice-selector {
-  grid-column: 2 / 2;
-  grid-row: 2 / 2;
+  grid-area: dice;
 }
 
 .dice-board {
-  grid-row: 2 / 2;
-  grid-column: 1 / 1;
-}
-
-.dice-timeout {
-  grid-row: 2 / 2;
-  grid-column: 1 / 3;
-}
-
-.refresh-icon {
-  grid-column: 2 / 2;
-  grid-row: 1 / 1;
+  grid-area: roles;
 }
 
 .roll-distributions {
-  grid-column: 1 / 3;
-  grid-row: 3 / 3;
+  margin-top: 6em;
+  grid-area: stats;
 }
 
 .crit-fail {
-    color: #FF1300;
-    /* color: #B70D00 */
+  color: #FF1300;
+  /* color: #B70D00 */
 }
 
 .crit-roll {
-    color: #FFD700;
+  color: #FFD700;
 }
 
 .worst-roll {
-    color: #AA99D7;
+  color: #AA99D7;
 }
 
 .best-roll {
-    color: #00C322;
+  color: #00C322;
 }
 
 .dice-timeout {
-    width: 100%;
-    height: 5px;
-    -webkit-appearance: none;
-    appearance: none;
-    margin-bottom: 10px;
+  grid-area: toprow;
+  width: 100%;
+  height: 5px;
+  -webkit-appearance: none;
+  appearance: none;
+  margin-bottom: 10px;
 }
 
 .dice-timeout[value]::-webkit-progress-bar {
-    background-color: #222;
-    /* background-color: red; */
+  background-color: #222;
+  /* background-color: red; */
 }
 
 .dice-timeout[value]::-webkit-progress-value {
-    background-color: #AAA;
+  background-color: #AAA;
 }
 
 .dice-icon {
-    width: 95px;
+  width: 95px;
 }
 
 @keyframes dice-roll-animation {
-    from {transform: rotate(0deg)}
-    to {transform: rotate(360deg)}
+  from {transform: rotate(0deg)}
+  to {transform: rotate(360deg)}
 }
 
 .refresh-icon {
-    height: 60px;
-    float: right;
+  grid-area: refresh;
+  margin: 0px auto;
+  height: 60px;
+  float: right;
 }
 
 .roll-distribution {
@@ -119,6 +115,25 @@ button {
 
 .roll-distribution .recharts-wrapper {
   display: inline-block;
+}
+
+.roll-summaries__summary {
+  margin: 0em 1em;
+  display: inline-block;
+}
+
+
+.roll-summaries__summary_value {
+  display: block;
+  text-align: center;
+  font-size: 2.5em;
+  margin-bottom: -0.3em;
+}
+
+.roll-summaries__summary_label {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
 }
 
 .recharts-surface {

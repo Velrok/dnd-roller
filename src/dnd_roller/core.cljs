@@ -1,5 +1,5 @@
 (ns dnd-roller.core
-  (:require 
+  (:require
     [reagent.core :as r]
     ["recharts" :refer [BarChart Bar]] ))
 
@@ -15,6 +15,12 @@
                        "/audio/dice roll 4.m4a"
                        "/audio/dice roll 5.m4a"
                        "/audio/dice roll 6.m4a"])
+
+(defn- round
+  [x]
+  (/
+   (Math/round (* 10 x))
+   10))
 
 (defonce history (r/atom ()))
 
@@ -94,8 +100,8 @@
 (defn <dice-board>
   []
   (let [rolles (keep :value @rolls)
-        ;min-v  (reduce min rolles)
-        ;max-v  (reduce max rolles)
+        min-v  (reduce min rolles)
+        max-v  (reduce max rolles)
         ]
     (if (empty? rolles)
       [:div.dice-board]
@@ -120,11 +126,19 @@
                         ;(= max-v (:value d))      "best-roll"
                         )}
            (or (:value d) "?")]])
-       [:span {:style {:display "inline-block"}}
-        [:p {:style {:text-align "center"
-                     :font-size "3rem"
-                     :margin "5px"}}
-         (str "= " (reduce + rolles))]]])))
+       [:div.roll-summaries
+        [:span.roll-summaries__summary
+         [:span.roll-summaries__summary_value min-v]
+         [:span.roll-summaries__summary_label "min"]]
+        [:span.roll-summaries__summary
+         [:span.roll-summaries__summary_value max-v]
+         [:span.roll-summaries__summary_label "max"]]
+        [:span.roll-summaries__summary
+         [:span.roll-summaries__summary_value (round (/ (reduce + rolles) (count rolles)))]
+         [:span.roll-summaries__summary_label "avg"]]
+        [:span.roll-summaries__summary
+         [:span.roll-summaries__summary_value (reduce + rolles)]
+         [:span.roll-summaries__summary_label "sum"]]]])))
 
 (defn <distribution>
   []
@@ -145,8 +159,8 @@
                                    {:data (get data % 0)})
                                  (map inc (range sides)))}
            [bar {:dataKey "data" :fill "#FFF"}]]
-          [:p 
-           (str "D" sides) 
+          [:p
+           (str "D" sides)
            " #" (reduce + (vals data))]]))]))
 
 (defn main-view []
@@ -155,7 +169,7 @@
    [:h1.app-title {:style {:display "inline-block"}} "D&D Roller"]
    [:img.refresh-icon {:src "/img/refresh.png"
                        :on-click #(.reload js/location true)}]
-   [:progress.dice-timeout {:max results-timeout 
+   [:progress.dice-timeout {:max results-timeout
                             :value @dice-selection-reset-timer}]
    [<dice-selector>]
    [<dice-board>]
@@ -170,7 +184,7 @@
   ;; init is called ONCE when the page loads
   ;; this is called in the index.html and must be exported
   ;; so it is available even in :advanced release builds
-  (js/setInterval #(do
+  #_(js/setInterval #(do
                      (swap! dice-selection-reset-timer count-down)
                      (when (zero? @dice-selection-reset-timer)
                        (reset! rolls [])))
