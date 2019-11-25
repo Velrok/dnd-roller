@@ -184,7 +184,7 @@
   ;; init is called ONCE when the page loads
   ;; this is called in the index.html and must be exported
   ;; so it is available even in :advanced release builds
-  #_(js/setInterval #(do
+  (js/setInterval #(do
                      (swap! dice-selection-reset-timer count-down)
                      (when (zero? @dice-selection-reset-timer)
                        (reset! rolls [])))
