@@ -16,3 +16,4 @@ Icons are from https://game-icons.net/tags/dice.html
 
 Run `shadow-cljs --debug watch :app`
 then go to http://localhost:3000
+
