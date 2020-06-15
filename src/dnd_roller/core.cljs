@@ -16,6 +16,11 @@
                        "/audio/dice roll 5.m4a"
                        "/audio/dice roll 6.m4a"])
 
+(def dice-sounds
+  (for [dice-type ["d4" "d6" "d8" "d10" "d12" "d20" "d100"]
+        n (map inc (range 3))]
+    (str "/audio/" dice-type " " n ".m4a")))
+
 (defn- round
   [x]
   (/
@@ -29,17 +34,15 @@
 (defn <dice-roll-sounds>
   []
   [:div
-   (for [s dice-roll-sounds]
+   (for [s dice-sounds]
      [:audio {:id  (str "da-" s)
               :key (str "dice-audio-" s)}
       [:source {:src s}]])])
 
 (defn play-random-dice-sound
-  []
-  (let [rand-sound (->> dice-roll-sounds
-                        shuffle
-                        first)]
-    (println (str "Playing: " rand-sound))
+  [d-type]
+  (let [rn (->> [1 2 3] shuffle first)
+        rand-sound (str "/audio/" d-type " " rn ".m4a")]
     (->> rand-sound
          (str "da-")
          (.getElementById js/document)
@@ -50,13 +53,13 @@
   [x]
   (max 0 (dec x)))
 
-(def d4   {:sides  4 :img "/img/dice/d4.png"})
-(def d6   {:sides  6 :img "/img/dice/perspective-dice-six.png"})
-(def d8   {:sides  8 :img "/img/dice/dice-eight-faces-eight.png"})
-(def d10  {:sides 10 :img "/img/dice/d10.png"})
-(def d12  {:sides 12 :img "/img/dice/d12.png"})
-(def d20  {:sides 20 :img "/img/dice/dice-twenty-faces-twenty.png"})
-(def d100 {:sides 20 :img "/img/dice/d10.png"})
+(def d4   {:sides   4 :img "/img/dice/d4.png"})
+(def d6   {:sides   6 :img "/img/dice/perspective-dice-six.png"})
+(def d8   {:sides   8 :img "/img/dice/dice-eight-faces-eight.png"})
+(def d10  {:sides  10 :img "/img/dice/d10.png"})
+(def d12  {:sides  12 :img "/img/dice/d12.png"})
+(def d20  {:sides  20 :img "/img/dice/dice-twenty-faces-twenty.png"})
+(def d100 {:sides 100 :img "/img/dice/d10.png"})
 
 (def all-dice [d4 d6 d8 d10 d12 d20])
 
@@ -64,7 +67,6 @@
   [d]
   (let [r (assoc d :value
                  (inc (rand-int (:sides d))))]
-    (prn "adding " r)
     (swap! history conj (assoc r :date-time (js/Date.)))
     r))
 
@@ -89,7 +91,7 @@
                             (js/setTimeout
                               #(some-> target .-style (.setProperty "animation-play-state" "paused" ""))
                               500))
-                          (play-random-dice-sound)
+                          (play-random-dice-sound (str "d" (:sides d)))
                           (swap! rolls conj
                                  (-> d
                                      (assoc :id (gensym))
@@ -176,7 +178,6 @@
    [<distribution>] ])
 
 (defn start []
-  (println "start")
   (r/render-component [main-view]
                       (. js/document (getElementById "app"))))
 
