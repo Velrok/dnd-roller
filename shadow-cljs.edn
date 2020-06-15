@@ -24,6 +24,6 @@
          :after-load dnd-roller.core/start
          ;; serve the public directory over http at port 8700
          :http-root    "public"
-         :http-port    3000
+         :http-port    3030
          :preloads     [devtools.preload]}
         }}}
