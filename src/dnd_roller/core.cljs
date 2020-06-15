@@ -59,9 +59,9 @@
 (def d10  {:sides  10 :img "/img/dice/d10.png"})
 (def d12  {:sides  12 :img "/img/dice/d12.png"})
 (def d20  {:sides  20 :img "/img/dice/dice-twenty-faces-twenty.png"})
-(def d100 {:sides 100 :img "/img/dice/d10.png"})
+(def d100 {:sides 100 :img "/img/dice/d100.png"})
 
-(def all-dice [d4 d6 d8 d10 d12 d20])
+(def all-dice [d4 d6 d8 d10 d12 d20 d100])
 
 (defn roll-dice!
   [d]
