@@ -13,7 +13,7 @@
     "http-server": "0.11.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "recharts": "^1.6.2",
+    "recharts": "^2.1.14",
     "schedule": "^0.5.0",
     "shadow-cljs": "^2.8.39"
   },
