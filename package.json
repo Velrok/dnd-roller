@@ -9,7 +9,7 @@
     "clean": "rm -rf target; rm -rf public/js/compiled"
   },
   "dependencies": {
-    "create-react-class": "^15.6.2",
+    "create-react-class": "^15.7.0",
     "http-server": "0.11.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
