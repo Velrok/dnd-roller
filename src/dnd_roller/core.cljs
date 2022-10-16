@@ -10,17 +10,17 @@
 (defonce rolls (r/atom []))
 (defonce dice-selection-reset-timer (r/atom 0))
 
-(def dice-roll-sounds ["/audio/dice roll 1.m4a"
-                       "/audio/dice roll 2.m4a"
-                       "/audio/dice roll 3.m4a"
-                       "/audio/dice roll 4.m4a"
-                       "/audio/dice roll 5.m4a"
-                       "/audio/dice roll 6.m4a"])
+(def dice-roll-sounds ["./audio/dice roll 1.m4a"
+                       "./audio/dice roll 2.m4a"
+                       "./audio/dice roll 3.m4a"
+                       "./audio/dice roll 4.m4a"
+                       "./audio/dice roll 5.m4a"
+                       "./audio/dice roll 6.m4a"])
 
 (def dice-sounds
   (for [dice-type ["d4" "d6" "d8" "d10" "d12" "d20" "d100"]
         n (map inc (range 3))]
-    (str "/audio/" dice-type " " n ".m4a")))
+    (str "./audio/" dice-type " " n ".m4a")))
 
 (defn- round
   [x]
