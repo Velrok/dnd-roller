@@ -43,7 +43,7 @@
 (defn play-random-dice-sound
   [d-type]
   (let [rn (->> [1 2 3] shuffle first)
-        rand-sound (str "/audio/" d-type " " rn ".m4a")]
+        rand-sound (str "./audio/" d-type " " rn ".m4a")]
     (->> rand-sound
          (str "da-")
          (.getElementById js/document)
@@ -54,13 +54,13 @@
   [x]
   (max 0 (dec x)))
 
-(def d4   {:sides   4 :img "/img/dice/d4.png"})
-(def d6   {:sides   6 :img "/img/dice/perspective-dice-six.png"})
-(def d8   {:sides   8 :img "/img/dice/dice-eight-faces-eight.png"})
-(def d10  {:sides  10 :img "/img/dice/d10.png"})
-(def d12  {:sides  12 :img "/img/dice/d12.png"})
-(def d20  {:sides  20 :img "/img/dice/dice-twenty-faces-twenty.png"})
-(def d100 {:sides 100 :img "/img/dice/d100.png"})
+(def d4   {:sides   4 :img "./img/dice/d4.png"})
+(def d6   {:sides   6 :img "./img/dice/perspective-dice-six.png"})
+(def d8   {:sides   8 :img "./img/dice/dice-eight-faces-eight.png"})
+(def d10  {:sides  10 :img "./img/dice/d10.png"})
+(def d12  {:sides  12 :img "./img/dice/d12.png"})
+(def d20  {:sides  20 :img "./img/dice/dice-twenty-faces-twenty.png"})
+(def d100 {:sides 100 :img "./img/dice/d100.png"})
 
 (def all-dice [d4 d6 d8 d10 d12 d20 d100])
 
@@ -170,7 +170,7 @@
   [:div.main
    [<dice-roll-sounds>]
    [:h1.app-title {:style {:display "inline-block"}} "D&D Roller"]
-   [:img.refresh-icon {:src "/img/refresh.png"
+   [:img.refresh-icon {:src "./img/refresh.png"
                        :on-click #(.reload js/location true)}]
    [:progress.dice-timeout {:max results-timeout
                             :value @dice-selection-reset-timer}]
