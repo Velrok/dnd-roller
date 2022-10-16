@@ -1,7 +1,8 @@
 (ns dnd-roller.core
-  (:require
-    [reagent.core :as r]
-    ["recharts" :refer [BarChart Bar]] ))
+  (:require [reagent.core :as r]
+            [reagent.dom :as rdom]
+            [clojure.string :as str]
+            ["recharts" :refer [BarChart Bar]]))
 
 (def bar-chart (r/adapt-react-class BarChart))
 (def bar (r/adapt-react-class Bar))
@@ -178,8 +179,8 @@
    [<distribution>] ])
 
 (defn start []
-  (r/render-component [main-view]
-                      (. js/document (getElementById "app"))))
+  (rdom/render [main-view]
+               (. js/document (getElementById "app"))))
 
 (defn ^:export init []
   ;; init is called ONCE when the page loads
